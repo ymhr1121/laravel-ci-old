@@ -21,5 +21,8 @@ jobs:
           name: wait for db
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
+          name: wait for db
+          command: sleep 60
+      - run:
           name: php test
           command: ./vendor/bin/phpunit
