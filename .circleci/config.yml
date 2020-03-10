@@ -3,5 +3,20 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.3-node-browsers
+      - image: circleci/postgres:11.6
+        environment:
+          POSTGRES_DB: larasns
+          POSTGRES_USER: default
+          POSTGRES_PASSWORD: secret
+    environment:
+      APP_ENV: testing
+      DB_HOST: localhost
+      DB_PORT: 5432
     steps:
-      - run: echo "Hello World"
+      - checkout
+      - run:
+          name: composer install
+          command: composer install --prefer-dist
+      - run:
+          name: php test
+          command: ./vendor/bin/phpunit
