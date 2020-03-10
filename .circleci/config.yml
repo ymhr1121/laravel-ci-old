@@ -6,7 +6,7 @@ jobs:
       - image: circleci/postgres:10.1
         environment:
           POSTGRES_DB: larasns
-          POSTGRES_USER: default
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: secret
     environment:
       APP_ENV: testing
