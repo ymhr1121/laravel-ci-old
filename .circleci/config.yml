@@ -19,7 +19,10 @@ jobs:
       - checkout
       - run:
           name: install dependencies
-          command: sudo docker-php-ext-install pdo_pgsql
+          command: |
+            apt-get update
+            apt-get -y install libpq-dev
+            sudo docker-php-ext-install pdo_pgsql
       - run:
           name: composer install
           command: composer install --prefer-dist
