@@ -19,9 +19,7 @@ jobs:
       - checkout
       - run:
           name: install dependencies
-          command: |
-            sudo apt-get update
-            sudo apt-get install postgresql-client
+          command: docker-php-ext-install mbstring pdo pdo_pgsql
       - run:
           name: composer install
           command: composer install --prefer-dist
