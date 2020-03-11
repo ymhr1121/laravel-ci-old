@@ -17,5 +17,11 @@ jobs:
           name: composer install
           command: composer install --prefer-dist
       - run:
+          name: npm ci
+          command: npm ci
+      - run:
+          name: npm run dev
+          command: npm rum dev
+      - run:
           name: php test
           command: ./vendor/bin/phpunit
