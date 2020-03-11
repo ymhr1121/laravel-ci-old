@@ -14,7 +14,7 @@ class ArticleControllerTest extends TestCase
 
     public function testIndex()
     {
-        echo('DB_CONNECTION:' . env('DB_CONNECTION')):
+        echo('DB_CONNECTION:' . env('DB_CONNECTION'));
         
         $response = $this->get(route('articles.index'));
 
