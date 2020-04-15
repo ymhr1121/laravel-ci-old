@@ -35,10 +35,8 @@ jobs:
           command: ./vendor/bin/phpunit
 
   deploy:
-    docker:
-      - image: circleci/php:7.3-node-browsers
-#    machine:
-#      image: circleci/classic:edge
+    machine:
+      image: circleci/classic:edge
     steps:
       - add_ssh_keys
 #      - run:
