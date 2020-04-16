@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - composer install --prefer-dist
+      - npm ci
+
+  build:
+    commands:
+      - npm run prod
+
+  post_build:
+    commands:
+      - cp .env.example .env
+
+artifacts:
+  files:
+    - './**/*'
