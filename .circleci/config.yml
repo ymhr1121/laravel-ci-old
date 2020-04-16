@@ -38,12 +38,13 @@ jobs:
     docker:
       - image: circleci/php:7.3-node-browsers
     steps:
+      - checkout
       - add_ssh_keys
       - run:
           name: deploy
           command: |
-            COMMAND="cd laravel && git pull origin master && composer install --no-dev --prefer-dist && npm ci && npm run prod && php artisan migrate --force"
-            ssh -o StrictHostKeyChecking=no -t laravel@${HOST_NAME} $COMMAND
+            echo -e "Host git-codecommit.*.amazonaws.com\n  User ${AWS_CODE_COMMIT_SSH_KEY_ID}\n  StrictHostKeyChecking no" > ${HOME}/.ssh/config
+            git push ssh://git-codecommit.ap-northeast-1.amazonaws.com/v1/repos/laravel-ci master
 
 workflows:
   version: 2
