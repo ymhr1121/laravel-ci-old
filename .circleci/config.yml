@@ -40,9 +40,7 @@ jobs:
       - image: circleci/php:7.3-node-browsers
     steps:
       - checkout
-      - add_ssh_keys:
-          fingerprints:
-            - c3:c0:b3:44:c1:0a:4c:2a:75:75:f7:d9:50:9e:7f:de
+      - add_ssh_keys
       - run:
           name: deploy
           command: |
