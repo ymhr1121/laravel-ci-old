@@ -1,0 +1,16 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/laravel/laravel
+
+permissions:
+  - object: /home/laravel/laravel
+    owner: laravel
+    group: laravel
+
+hooks:
+  AfterInstall:
+    - location: ./deploy.sh
+      timeout: 60
+      runas: laravel
