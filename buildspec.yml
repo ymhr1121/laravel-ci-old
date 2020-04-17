@@ -10,10 +10,6 @@ phases:
     commands:
       - npm run prod
 
-  post_build:
-    commands:
-      - cp .env.example .env
-
 artifacts:
   files:
     - './**/*'
