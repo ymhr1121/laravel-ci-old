@@ -3,12 +3,16 @@ version: 0.2
 phases:
   install:
     commands:
-      - composer install --prefer-dist
+      - composer install --no-dev --prefer-dist
       - npm ci
 
   build:
     commands:
       - npm run prod
+
+  post_build:
+    commands:
+      - ln -fs ../shared/.env .env
 
 artifacts:
   files:
