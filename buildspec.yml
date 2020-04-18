@@ -10,10 +10,6 @@ phases:
     commands:
       - npm run prod
 
-  post_build:
-    commands:
-      - ln -fs ../shared/.env .env
-
 artifacts:
   files:
     - './**/*'
