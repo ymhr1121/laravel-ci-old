@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  aws-code-deploy: circleci/aws-code-deploy@1.0
+  aws-s3: circleci/aws-s3@x.y
 jobs:
   build:
     docker:
@@ -41,26 +41,30 @@ jobs:
       - image: circleci/php:7.3-node-browsers
     steps:
       - checkout
-      - add_ssh_keys
       - run:
-          name: deploy
-          command: |
-            echo -e "Host git-codecommit.*.amazonaws.com\n  User ${AWS_CODE_COMMIT_SSH_KEY_ID}\n  StrictHostKeyChecking no" > ${HOME}/.ssh/config
-            git push ssh://git-codecommit.ap-northeast-1.amazonaws.com/v1/repos/laravel-ci master
+          name: build for production
+          command : |
+            - composer install --no-dev --prefer-dist
+            - npm ci
+            - npm run prod
+            - zip -ryq laravel-ci.zip
+#      - add_ssh_keys
+#      - run:
+#          name: deploy
+#          command: |
+#            echo -e "Host git-codecommit.*.amazonaws.com\n  User ${AWS_CODE_COMMIT_SSH_KEY_ID}\n  StrictHostKeyChecking no" > ${HOME}/.ssh/config
+#            git push ssh://git-codecommit.ap-northeast-1.amazonaws.com/v1/repos/laravel-ci master
+      - aws-s3/copy:
+          aws-region: ap-northeast-1
+          from: laravel-ci.zip
+          to: s3://codedeploy-ap-northeast-1-458821178073
 
 workflows:
   version: 2
   build-deploy:
     jobs:
       - build
-      - aws-code-deploy/deploy:
-          application-name: laravel-ci
-          bundle-bucket: codedeploy-ap-northeast-1-458821178073
-          bundle-key: laravel-ci
-          deployment-group: laravel-ci-s3
-          service-role-arn: arn:aws:iam::878623936393:role/CodeDeployRole
-          requires:
-            - build
+      - deploy:
           filters:
             branches:
               only:
