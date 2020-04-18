@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  aws-code-deploy: circleci/aws-code-deploy@1.0
 jobs:
   build:
     docker:
@@ -51,7 +53,12 @@ workflows:
   build-deploy:
     jobs:
       - build
-      - deploy:
+      - aws-code-deploy/deploy:
+          application-name: laravel-ci
+          bundle-bucket: codedeploy-ap-northeast-1-458821178073
+          bundle-key: laravel-ci
+          deployment-group: laravel-ci-s3
+          service-role-arn: arn:aws:iam::878623936393:role/CodeDeployRole
           requires:
             - build
           filters:
