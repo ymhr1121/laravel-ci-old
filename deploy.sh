@@ -2,7 +2,5 @@
 
 set -eux
 
-cd /home/laravel/laravel
-ln -fs ../shared/.env .env
-chown -h laravel:laravel .env
-sudo -u laravel php artisan migrate --force
+cd ~/laravel
+php artisan migrate --force
