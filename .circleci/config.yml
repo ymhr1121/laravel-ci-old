@@ -55,7 +55,6 @@ jobs:
 #            echo -e "Host git-codecommit.*.amazonaws.com\n  User ${AWS_CODE_COMMIT_SSH_KEY_ID}\n  StrictHostKeyChecking no" > ${HOME}/.ssh/config
 #            git push ssh://git-codecommit.ap-northeast-1.amazonaws.com/v1/repos/laravel-ci master
       - aws-s3/copy:
-          aws-region: ap-northeast-1
           from: laravel-ci.zip
           to: s3://codedeploy-ap-northeast-1-458821178073
 
