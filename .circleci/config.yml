@@ -44,10 +44,10 @@ jobs:
       - run:
           name: build for production
           command : |
-            - composer install --no-dev --prefer-dist
-            - npm ci
-            - npm run prod
-            - zip -ryq laravel-ci.zip
+            composer install --no-dev --prefer-dist
+            npm ci
+            npm run prod
+            zip -ryq laravel-ci.zip
 #      - add_ssh_keys
 #      - run:
 #          name: deploy
