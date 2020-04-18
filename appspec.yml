@@ -13,4 +13,3 @@ hooks:
   AfterInstall:
     - location: ./deploy.sh
       timeout: 60
-      runas: laravel
