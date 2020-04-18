@@ -2,7 +2,7 @@
 
 set -eux
 
-cd ~/laravel
+cd /home/laravel/laravel
 ln -fs ../shared/.env .env
 chown laravel:laravel .env
 
