@@ -41,22 +41,22 @@ jobs:
       - image: circleci/php:7.3-node-browsers
     steps:
       - checkout
-      - run:
-          name: build for production
-          command : |
-            composer install --no-dev --prefer-dist
-            npm ci
-            npm run prod
-            zip -ryq laravel-ci.zip .
-#      - add_ssh_keys
 #      - run:
-#          name: deploy
-#          command: |
-#            echo -e "Host git-codecommit.*.amazonaws.com\n  User ${AWS_CODE_COMMIT_SSH_KEY_ID}\n  StrictHostKeyChecking no" > ${HOME}/.ssh/config
-#            git push ssh://git-codecommit.ap-northeast-1.amazonaws.com/v1/repos/laravel-ci master
-      - aws-s3/copy:
-          from: laravel-ci.zip
-          to: s3://codedeploy-ap-northeast-1-458821178073
+#          name: build for production
+#          command : |
+#            composer install --no-dev --prefer-dist
+#            npm ci
+#            npm run prod
+#            zip -ryq laravel-ci.zip .
+      - add_ssh_keys
+      - run:
+          name: deploy
+          command: |
+            echo -e "Host git-codecommit.*.amazonaws.com\n  User ${AWS_CODE_COMMIT_SSH_KEY_ID}\n  StrictHostKeyChecking no" > ${HOME}/.ssh/config
+            git push ssh://git-codecommit.ap-northeast-1.amazonaws.com/v1/repos/laravel-ci master
+#      - aws-s3/copy:
+#          from: laravel-ci.zip
+#          to: s3://codedeploy-ap-northeast-1-458821178073
 
 workflows:
   version: 2
